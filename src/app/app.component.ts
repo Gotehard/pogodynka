@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Cords} from './cords';
+import {Coords} from './shared/interfaces/coords';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,11 @@ import {Cords} from './cords';
 export class AppComponent{
   loaderIsShow = false;
   title = 'pogoda';
-  cords: Cords;
-  getCords($event): void {
-    this.cords = $event;
+  cords: Coords;
+  getCords($Coords: Coords): void {
+    this.cords = $Coords;
   }
-  displayLoader(disp: boolean): void {
-    this.loaderIsShow = disp;
+  displayLoader(isLoaderDisplay: boolean): void {
+    this.loaderIsShow = isLoaderDisplay;
   }
 }

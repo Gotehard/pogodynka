@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HistoryService} from '../history.service';
-import {WeatherData} from '../weatherData';
+import {WeatherData} from '../shared/interfaces/weatherData';
+import {FavoriteService} from '../favorite.service';
 
 const limit = 10;
 
@@ -9,9 +10,8 @@ const limit = 10;
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
 
-  fav: WeatherData[] = [];
   actualPage = 0;
 
   clearHistory(): void {
@@ -41,40 +41,10 @@ export class HistoryComponent implements OnInit {
     this.actualPage = this.actualPage > 0 ? this.actualPage - 1 : 0;
   }
 
-  addToFav(w: WeatherData): void {
-    let canAdd = true;
-    this.fav.forEach(elem => {
-      if (elem === w) {
-        this.fav.splice(this.fav.indexOf(w), 1);
-        canAdd = false;
-      }
-    });
-    if (canAdd) {
-      this.fav.push(w);
-    }
-    localStorage.setItem('fav', JSON.stringify(this.fav));
-  }
 
-  isFav(w: WeatherData): boolean {
-    let t = false;
-    this.fav.map(m => {
-      if (m === w) {
-        t = true;
-      }
-    });
-    return t;
-  }
-
-  constructor(public historyservice: HistoryService) {
-  }
-
-  ngOnInit(): void {
-    const storageGet = JSON.parse(localStorage.getItem('fav'));
-    console.log(storageGet);
-    if (storageGet !== null) {
-      this.fav = storageGet;
-    }
-  }
-
+  constructor(
+    public favoriteservice: FavoriteService,
+    public historyservice: HistoryService
+  ) { }
 
 }

@@ -9,6 +9,7 @@ import {WeatherComponent} from './weather/weather.component';
 import { HistoryComponent } from './history/history.component';
 import { LoaderComponent } from './loader/loader.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     WeatherComponent,
     HistoryComponent,
     LoaderComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
