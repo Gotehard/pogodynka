@@ -1,0 +1,71 @@
+
+<div class="accordion" id="accordionFavorite" *ngIf="fav.length">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFavorite">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFavorite"
+              aria-expanded="false" aria-controls="collapseFavorite">
+        Ulubione ♥
+      </button>
+    </h2>
+    <div id="collapseFavorite" class="accordion-collapse collapse" aria-labelledby="headingOne"
+         data-bs-parent="#accordionFavorite">
+      <div class="accordion-body">
+        <div *ngFor="let weather of fav">
+          Miasto: {{ weather.city.name }} <br>
+          Temperatura: {{ weather.weather.temp }} <br>
+          <button (click)="addToFav(weather)">
+            {{isFav(weather) ? "Usuń z ulubionych" : 'Dodaj do ulubionych'}}
+          </button>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="accordion" id="accordionStatistics" *ngIf="historyservice.searchHistory.length">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingStatistics">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatistics"
+              aria-expanded="false" aria-controls="collapseStatistics">
+        Statystyki
+      </button>
+    </h2>
+    <div id="collapseStatistics" class="accordion-collapse collapse" aria-labelledby="headingOne"
+         data-bs-parent="#accordionStatistics">
+      <div class="accordion-body">
+        <app-statistics></app-statistics>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="accordion" id="accordionHistory" *ngIf="historyservice.searchHistory.length">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingHistory">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistory"
+              aria-expanded="false" aria-controls="collapseHistory">
+        Historia
+      </button>
+    </h2>
+    <div id="collapseHistory" class="accordion-collapse collapse" aria-labelledby="headingOne"
+         data-bs-parent="#accordionHistory">
+      <div class="accordion-body">
+        <button (click)="prevPage()"> <</button>
+        Strona : {{actualPage + 1}}/{{getLastPageNum() + 1}}
+        <button (click)="nextPage()"> ></button>
+        <button (click)="clearHistory()">usuń historię</button>
+        <hr>
+        <div *ngFor="let weather of getPagList()">
+          Miasto: {{ weather.city.name }} <br>
+          Temperatura: {{ weather.weather.temp }} <br>
+          <button (click)="addToFav(weather)">
+            {{isFav(weather) ? "Usuń z ulubionych" : 'Dodaj do ulubionych'}}
+          </button>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

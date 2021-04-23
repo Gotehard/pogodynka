@@ -1,0 +1,14 @@
+<button (click)="klik()">Klik</button>
+<div *ngIf="w" class="weather">
+  Aktualnie wybrano
+  <br>
+  Miasto {{w.city.name}} <br>
+  Opis: {{ w.weather.description }} <br>
+  Temperatura: {{ w.weather.temp }} <br>
+  Temp odczuwalna: {{ w.weather.feels_like }} <br>
+  Ciśnienie: {{ w.weather.pressure }} <br>
+  Wiatr: {{w.weather.wind.speed}} <br>
+  Kierunek wiatru: {{w.weather.wind.deg}} <br>
+</div>
+<br>
+<br>

@@ -1,0 +1,14 @@
+.loader{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fffc;
+  z-index: 999;
+}
+.loader p{
+  font-size: 3em;
+  text-align: center;
+  margin: auto;
+}
