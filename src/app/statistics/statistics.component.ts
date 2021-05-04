@@ -7,20 +7,20 @@ import {HistoryService} from '../history.service';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent {
-  getMinTemp(): any {
-    let minTem = this.historyservice.searchHistory[0].weather.temp;
+  getMinTemp(): number {
+    let minTem = this.historyservice.searchHistory[0].main.temp;
     this.historyservice.searchHistory.map(value => {
-      const temp = value.weather.temp;
+      const temp = value.main.temp;
       if (temp < minTem) {
         minTem = temp;
       }
     });
     return minTem;
   }
-  getMaxTemp(): any {
-    let maxTem = this.historyservice.searchHistory[0].weather.temp;
+  getMaxTemp(): number {
+    let maxTem = this.historyservice.searchHistory[0].main.temp;
     this.historyservice.searchHistory.map(value => {
-      const temp = value.weather.temp;
+      const temp = value.main.temp;
       if (temp > maxTem) {
         maxTem = temp;
       }
@@ -28,10 +28,10 @@ export class StatisticsComponent {
     return maxTem;
   }
 
-  getAvgTemp(): any {
+  getAvgTemp(): string {
     let sumOfTemp = 0;
-    this.historyservice.searchHistory.map(value => { sumOfTemp += value.weather.temp; });
-    return (sumOfTemp / this.historyservice.searchHistory.length).toFixed(3);
+    this.historyservice.searchHistory.map(value => { sumOfTemp += value.main.temp; });
+    return (sumOfTemp / this.historyservice.searchHistory.length).toFixed(2);
   }
 
   constructor(public historyservice: HistoryService) {

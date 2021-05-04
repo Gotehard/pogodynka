@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Cords} from '../cords';
+import {Coords} from '../shared/interfaces/coords';
 import {WeatherService} from '../weather.service';
-import {WeatherData} from '../weatherData';
+import {WeatherData} from '../shared/interfaces/weatherData';
 import {HistoryService} from '../history.service';
+import {FavoriteService} from '../favorite.service';
 
 @Component({
   selector: 'app-weather',
@@ -11,63 +12,69 @@ import {HistoryService} from '../history.service';
   providers: [WeatherService]
 })
 export class WeatherComponent implements OnInit {
-  w: WeatherData;
-  // tslint:disable-next-line:variable-name
-  // private _c: Cords = {lng: 0, lat: 0};
-  // tslint:disable-next-line:variable-name
-  private _c: Cords;
+  weatherData: WeatherData;
+  private _coords: Coords;
 
-  constructor(public weatherservice: WeatherService, public historyservice: HistoryService) {
+  constructor(public weatherservice: WeatherService,
+              public historyservice: HistoryService,
+              public favoriteservice: FavoriteService
+  ) {
   }
-  @Output() displayLoader = new EventEmitter();
+
+  @Output() displayLoader: EventEmitter<boolean> = new EventEmitter();
 
   @Input()
-  get c(): Cords {
-    return this._c;
-  }
-  set c(value: Cords) {
-    this._c = value;
-    this.weatherservice.setCoords(this.c);
-    this.displayLoader.emit(true);
-    this.getWeatherInfo();
+  get coords(): Coords {
+    return this._coords;
   }
 
-  klik(): void {
-    console.warn(this.w);
+  set coords(coords: Coords) {
+    this._coords = coords;
+    if (coords) {
+      this.displayLoader.emit(true);
+      this.getWeatherInfo();
+    }
   }
 
   getWeatherInfo(): void {
-    this.weatherservice.getWeatherData().subscribe(d => {
-      this.w = {
-        coords: {
-          lat: d.coord.lat,
-          lon: d.coord.lon
-        },
-        weather: {
-          description: d.weather[0].description,
-          temp: d.main.temp,
-          feels_like: d.main.feels_like,
-          pressure: d.main.pressure,
+    if (this.weatherservice.getWeatherData(this.coords) === undefined) {
+      return;
+    }
+    this.weatherservice.getWeatherData(this.coords).subscribe(responseWeatherData => {
+        this.weatherData = {
+          coord: {
+            lat: responseWeatherData.coord.lat,
+            lon: responseWeatherData.coord.lon
+          },
+          weather: {
+            0: {
+              description: responseWeatherData.weather[0].description
+            }
+          },
+          main: {
+            temp: responseWeatherData.main.temp,
+            feels_like: responseWeatherData.main.feels_like,
+            pressure: responseWeatherData.main.pressure,
+          },
           wind: {
-            speed: d.wind.speed,
-            deg: d.wind.deg
-          }
-        },
-        city: {
-          name: d.name,
-          country: d.sys.country
-        }
-      };
-      this.historyservice.add(this.w);
-      this.displayLoader.emit(false);
-      console.log(this.historyservice.searchHistory);
-    });
+            speed: responseWeatherData.wind.speed,
+            deg: responseWeatherData.wind.deg
+          },
+          sys: {
+            country: responseWeatherData.sys.country
+          },
+          name: responseWeatherData.name
+        };
+        this.historyservice.add(this.weatherData);
+        this.displayLoader.emit(false);
+      },
+    )
+    ;
   }
 
   ngOnInit(): void {
-    this._c = {lng: 0, lat: 0};
-    this.weatherservice.setCoords({lng: 0, lat: 0});
-    this.historyservice.gethist();
+    this.favoriteservice.getFavorite();
+    this.historyservice.getHistory();
     this.displayLoader.emit(false);
   }
 

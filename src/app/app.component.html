@@ -10,5 +10,5 @@
     </div>
   </div>
 </div>
-<app-weather [c]="cords" (displayLoader)="displayLoader($event)"></app-weather>
+<app-weather [coords]="cords" (displayLoader)="displayLoader($event)"></app-weather>
 <app-loader *ngIf="loaderIsShow"></app-loader>

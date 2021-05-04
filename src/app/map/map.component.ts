@@ -1,6 +1,6 @@
 import {Component, AfterViewInit, EventEmitter, Output} from '@angular/core';
 import * as L from 'leaflet';
-import {Cords} from '../cords';
+import {Coords} from '../shared/interfaces/coords';
 import {WeatherService} from '../weather.service';
 
 @Component({
@@ -11,7 +11,7 @@ import {WeatherService} from '../weather.service';
 })
 export class MapComponent implements AfterViewInit {
   private map;
-  @Output() sendCords = new EventEmitter<Cords>();
+  @Output() sendCords = new EventEmitter<Coords>();
 
   private MapOnInit(): void {
     this.map = L.map('map').setView([51.77, 19.44], 6);
@@ -19,12 +19,13 @@ export class MapComponent implements AfterViewInit {
       maxZoom: 18,
       minZoom: 3
     });
-    this.map.on('click', e => {
-      console.log(e.latlng);
-      this.sendCords.emit({
-        lat: e.latlng.lat,
-        lng: e.latlng.lng
-      });
+    this.map.on('click', clickEvent => {
+      if (clickEvent.originalEvent.isTrusted) {
+        this.sendCords.emit({
+          lat: clickEvent.latlng.lat,
+          lng: clickEvent.latlng.lng
+        });
+      }
     });
     tiles.addTo(this.map);
   }

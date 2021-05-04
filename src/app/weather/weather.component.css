@@ -3,7 +3,5 @@ div.weather{
   position: fixed;
   top: 2vh;
   right: 2vw;
-  /*width: 10vw;*/
-  /*height: 30vh;*/
   z-index: 999;
 }

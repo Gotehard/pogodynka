@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { WeatherData } from './weatherData';
+import {Injectable} from '@angular/core';
+import {WeatherData} from './shared/interfaces/weatherData';
+import {LocalStorageNames} from './shared/enums/LocalStorageNames';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,22 +9,20 @@ import { WeatherData } from './weatherData';
 export class HistoryService {
   searchHistory: WeatherData[] = [];
 
-  add(weather: WeatherData): void{
+  add(weather: WeatherData): void {
     this.searchHistory.push(weather);
-    console.log(this.searchHistory);
-    localStorage.setItem('hist', JSON.stringify(this.searchHistory));
+    this.localstorageservice.save(this.searchHistory, LocalStorageNames.HISTORY);
   }
 
   clear(): void {
     this.searchHistory = [];
-    localStorage.setItem('hist', JSON.stringify(this.searchHistory));
+    this.localstorageservice.clear(LocalStorageNames.HISTORY);
   }
-  constructor() { }
-  gethist(): void {
-    const storageGet = JSON.parse(localStorage.getItem('hist'));
-    console.log(storageGet);
-    if (storageGet !== null) {
-    this.searchHistory = storageGet;
-    }
+
+  getHistory(): void {
+    this.searchHistory = this.localstorageservice.get(LocalStorageNames.HISTORY);
+  }
+
+  constructor(private localstorageservice: LocalStorageService) {
   }
 }
