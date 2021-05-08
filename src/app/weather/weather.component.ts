@@ -4,6 +4,8 @@ import {WeatherService} from '../weather.service';
 import {WeatherData} from '../shared/interfaces/weatherData';
 import {HistoryService} from '../history.service';
 import {FavoriteService} from '../favorite.service';
+import {MatDialog} from '@angular/material/dialog';
+import {WeatherDialogComponent} from '../weather-dialog/weather-dialog.component';
 
 @Component({
   selector: 'app-weather',
@@ -17,7 +19,8 @@ export class WeatherComponent implements OnInit {
 
   constructor(public weatherservice: WeatherService,
               public historyservice: HistoryService,
-              public favoriteservice: FavoriteService
+              public favoriteservice: FavoriteService,
+              public dialog: MatDialog
   ) {
   }
 
@@ -63,9 +66,11 @@ export class WeatherComponent implements OnInit {
           sys: {
             country: responseWeatherData.sys.country
           },
-          name: responseWeatherData.name
+          name: responseWeatherData.name,
+          date: Date.now()
         };
         this.historyservice.add(this.weatherData);
+        this.dialog.open(WeatherDialogComponent, {data: this.weatherData});
         this.displayLoader.emit(false);
       },
     )
@@ -73,9 +78,6 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.favoriteservice.getFavorite();
-    this.historyservice.getHistory();
     this.displayLoader.emit(false);
   }
-
 }

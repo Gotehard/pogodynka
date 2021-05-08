@@ -10,6 +10,9 @@ import { HistoryComponent } from './history/history.component';
 import { LoaderComponent } from './loader/loader.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { WeatherDialogComponent } from './weather-dialog/weather-dialog.component';
+import { HistoryItemComponent } from './history-item/history-item.component';
+import {MaterialImportsModule} from './material-imports/material-imports.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +22,14 @@ import { FavoriteComponent } from './favorite/favorite.component';
     HistoryComponent,
     LoaderComponent,
     StatisticsComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    WeatherDialogComponent,
+    HistoryItemComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialImportsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title>
+    <p>Miasto: {{ historyItem.name }}</p>
+  </mat-card-title>
+  <mat-card-content>
+    <p>Temperatura: {{ historyItem.main.temp }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button (click)="favoriteservice.addToFavorite(historyItem)">
+      {{favoriteservice.isFavorite(historyItem) ? "Usuń z ulubionych" : 'Dodaj do ulubionych'}}
+    </button>
+    <button mat-stroked-button (click)="showDetails(historyItem)">
+      Zobacz szczegóły
+    </button>
+  </mat-card-actions>
+</mat-card>

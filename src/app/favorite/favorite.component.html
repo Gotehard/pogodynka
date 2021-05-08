@@ -1,8 +1,4 @@
-<div *ngFor="let weather of favoriteservice.Favorite">
-  <p>Miasto: {{ weather.name }}</p>
-  <p>Temperatura: {{ weather.main.temp }}</p>
-  <button (click)="favoriteservice.addToFavorite(weather)">
-    Usuń z ulubionych
-  </button>
-  <hr>
-</div>
+<app-history-item
+  *ngFor="let weather of favoriteservice.Favorite"
+  [historyItem]="weather">
+</app-history-item>

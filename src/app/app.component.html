@@ -1,14 +1,53 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-3" style="height: 100vh; overflow-y: scroll">
+<!--<div class="container-fluid">-->
+<!--  <div class="row">-->
+<!--    <div class="col-3" style="height: 100vh; overflow-y: scroll">-->
       <!--      <app-weather></app-weather>-->
-      <app-history></app-history>
-    </div>
-    <div class="col-9">
-      <app-map (sendCords)="getCords($event)"></app-map>
+<!--      <app-history></app-history>-->
+<!--    </div>-->
+<!--    <div class="col-9">-->
+<!--      <app-map (sendCords)="getCords($event)"></app-map>-->
       <!--      <app-map></app-map>-->
-    </div>
-  </div>
-</div>
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+
+  <mat-accordion multi>
+    <mat-expansion-panel *ngIf="favoriteservice.Favorite.length">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Ulubione
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+        <app-favorite></app-favorite>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="historyservice.searchHistory.length">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Statystyki
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+        <app-statistics></app-statistics>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="historyservice.searchHistory.length">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Historia
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+        <app-history></app-history>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+<!--      <app-history></app-history>-->
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <app-map (sendCords)="getCords($event)"></app-map>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
 <app-weather [coords]="cords" (displayLoader)="displayLoader($event)"></app-weather>
 <app-loader *ngIf="loaderIsShow"></app-loader>

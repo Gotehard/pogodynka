@@ -21,4 +21,5 @@ export interface WeatherData {
     country: string;
   };
     name: string;
+    date: number;
 }
