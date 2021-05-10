@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HistoryService} from '../history.service';
+import {HistoryService} from '../../core/services/history.service';
 
 @Component({
   selector: 'app-statistics',

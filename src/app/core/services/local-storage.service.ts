@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {WeatherData} from './shared/interfaces/weatherData';
-import {LocalStorageNames} from './shared/enums/LocalStorageNames';
+import {WeatherData} from '../../shared/interfaces/weatherData';
+import {LocalStorageNames} from '../../shared/enums/LocalStorageNames';
 
 @Injectable({
   providedIn: 'root'

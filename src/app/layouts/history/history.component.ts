@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {HistoryService} from '../history.service';
-import {WeatherData} from '../shared/interfaces/weatherData';
-import {FavoriteService} from '../favorite.service';
+import {HistoryService} from '../../core/services/history.service';
+import {WeatherData} from '../../shared/interfaces/weatherData';
+import {FavoriteService} from '../../core/services/favorite.service';
 
 const limit = 10;
 

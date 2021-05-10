@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {WeatherData} from '../shared/interfaces/weatherData';
-import {FavoriteService} from '../favorite.service';
+import {WeatherData} from '../../shared/interfaces/weatherData';
+import {FavoriteService} from '../../core/services/favorite.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WeatherDialogComponent} from '../weather-dialog/weather-dialog.component';
 

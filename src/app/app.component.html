@@ -45,9 +45,9 @@
 <!--      <app-history></app-history>-->
   </mat-sidenav>
   <mat-sidenav-content>
-      <app-map (sendCords)="getCords($event)"></app-map>
+      <app-map></app-map>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<app-weather [coords]="cords" (displayLoader)="displayLoader($event)"></app-weather>
-<app-loader *ngIf="loaderIsShow"></app-loader>
+<app-weather></app-weather>
+<app-loader></app-loader>

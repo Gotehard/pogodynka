@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {WeatherData} from './shared/interfaces/weatherData';
-import {LocalStorageNames} from './shared/enums/LocalStorageNames';
+import {WeatherData} from '../../shared/interfaces/weatherData';
+import {LocalStorageNames} from '../../shared/enums/LocalStorageNames';
 import {LocalStorageService} from './local-storage.service';
+import {MapService} from './map.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class FavoriteService {
     } else {
       this.Favorite.splice(this.Favorite.indexOf(w), 1);
     }
+    this.mapservice.drawMarkers(this.Favorite);
     this.localstorageservice.save(this.Favorite, LocalStorageNames.FAVORITE);
   }
 
@@ -26,6 +28,7 @@ export class FavoriteService {
     this.Favorite = this.localstorageservice.get(LocalStorageNames.FAVORITE);
   }
 
-  constructor(private localstorageservice: LocalStorageService) {
+  constructor(private localstorageservice: LocalStorageService,
+              private mapservice: MapService) {
   }
 }
